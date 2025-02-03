@@ -1,0 +1,70 @@
+CREATE DATABASE university;
+
+<---------- esercizi QUERY con SELECT ------------->
+
+SELECT *
+FROM `students`
+WHERE YEAR(`date_of_birth`) = 1990;
+
+SELECT*
+FROM `courses`
+WHERE `cfu` > 10;
+
+SELECT*
+FROM `students`
+WHERE YEAR(CURDATE()) - YEAR(`date_of_birth`) > 30;
+
+SELECT*
+FROM `courses`
+WHERE `year` = 1
+AND `period` = 'I semestre';
+
+SELECT*
+FROM `exams`
+WHERE TIME(`hour`) > '14:00:00'
+AND DATE(`date`) = '2020-06-20';
+
+SELECT `name`, `level`
+FROM `degrees`
+WHERE `level` = 'Magistrale';
+
+SELECT*
+FROM `departments`;
+
+SELECT*
+FROM `teachers`
+WHERE `phone` IS NULL;
+
+INSERT INTO `students`(`degree_id`,`name`,`surname`,`date_of_birth`,`fiscal_code`,`enrolment_date`,`registration_number`,`email`)
+VALUES (FLOOR(RAND() * 10) + 1,'Lucia', 'Meneghin', '2000-03-12', '0987654321098', '1696-02-31', '536812739', 'email.email@email.com');
+
+
+SELECT*
+FROM `teachers`
+WHERE `name` = 'Pietro' AND `surname` = 'Rizzo';
+
+UPDATE `teachers`
+SET `office_number` = 126
+WHERE `name` = 'Pietro' AND `surname` = 'Rizzo' AND `id` = 58;
+
+
+DESCRIBE `students`;
+DELETE FROM `students`
+WHERE `name` = 'Lucia' AND `surname` = 'Meneghin' AND `id` = '5003';
+
+
+<---------- esercizi QUERY con GROUP BY ------------->
+
+SELECT COUNT(*) AS `num_students`, YEAR (`enrolment_date`) AS `anno_iscrizione`
+FROM `students`
+GROUP BY YEAR(`enrolment_date`)
+ORDER BY `anno_iscrizione`;
+
+SELECT COUNT(*) AS `num_teacher`, `office_address`
+FROM `teachers`
+GROUP BY `office_address`;
+
+SELECT `exam_id`, AVG(`vote`) as `media`
+FROM `exam_student`
+GROUP BY `exam_id`
+ORDER BY `exam_id`;
