@@ -1,0 +1,38 @@
+<---------- esercizi QUERY con JOIN ------------->
+
+SELECT `degrees`.`name`, `students`.*
+FROM `degrees`
+JOIN `students` ON `degrees`.`id` = `students`.`degree_id`
+WHERE `degrees`.`name` = 'corso di laurea in economia';
+
+SELECT `degrees`.`name`, `degrees`.`level`, `departments`.`name`
+FROM `degrees`
+JOIN `departments` ON `degrees`.`id` = `departments`.`id`
+WHERE `degrees`.`level` = 'Magistrale' AND `departments`.`name` = 'dipartimento di neuroscienze';
+
+SELECT `teachers`.`name`, `teachers`.`surname`, `teachers`.`id`, `courses`.`name` AS `nome_corso`
+FROM `teachers`
+JOIN `course_teacher` ON `teachers`.`id` = `course_teacher`.`teacher_id`
+JOIN `courses` ON `course_id` = `courses`.`id`
+WHERE `teachers`.`name` = 'Fulvio' AND `teachers`.`surname` = 'Amato';
+
+SELECT `students`.`name`, `students`.`surname`, `degrees`.`name` AS `nome_corso_di_laurea`, `departments`.`name` AS `nome_dipartimento`
+FROM `students`
+JOIN `degrees` ON `students`.`degree_id` = `degrees`.`id`
+JOIN `departments` ON `degrees`.`department_id` = `departments`.`id`
+ORDER BY `students`.`surname`, `students`.`name`;
+
+SELECT `teachers`.name, `teachers`.surname, `courses`.name AS `corso`, `degrees`.name AS `corso_di_laurea`
+FROM `degrees`
+JOIN `courses` ON `degrees`.`id` = `courses`.`degree_id`
+JOIN `course_teacher` ON `courses`.`id` = `course_teacher`.`course_id`
+JOIN `teachers` ON `course_teacher`.`teacher_id` = `teachers`.`id`;
+
+SELECT `teachers`.`name`, `teachers`.`surname`, `departments`.`name` AS `nome_dipartimento`
+FROM `departments`
+JOIN `degrees` ON `departments`.`id` = `degrees`.`department_id`
+JOIN `courses` ON `degrees`.`id` = `courses`.`degree_id`
+JOIN `course_teacher` ON `courses`.`id` = `course_teacher`.`course_id`
+JOIN `teachers` ON `course_teacher`.`teacher_id` = `teachers`.`id`
+WHERE `departments`.`name` = 'dipartimento di matematica';
+
